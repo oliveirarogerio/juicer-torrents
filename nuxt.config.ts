@@ -3,15 +3,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: "2024-11-24",
 
-  nitro: {
-    devProxy: {
-      "/api/": {
-        target: "https://thepirateapi.fly.dev/",
-        changeOrigin: true,
-        prependPath: true,
-      },
-    },
-  },
   app: {
     head: {
       link: [

@@ -61,7 +61,7 @@ const search = async () => {
   results.value = [];
 
   try {
-    const response = await axios.get(`/api/search?query=${searchQuery.value}`);
+    const response = await axios.get(`https://thepirateapi.fly.dev/search?query=${searchQuery.value}`);
     results.value = response.data;
   } catch (err) {
     error.value = err.message;
