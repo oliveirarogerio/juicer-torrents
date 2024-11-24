@@ -57,7 +57,7 @@
     </div>
 
     <div
-      v-if="!loading && !results.length && searchQuery"
+      v-if="!loading && !results"
       class="text-gray-500 mt-4"
     >
       Nenhum resultado encontrado.
