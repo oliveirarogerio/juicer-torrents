@@ -3,6 +3,7 @@
     <NuxtLayout>
       <NuxtPage/>
     </NuxtLayout>
+    <UNotifications />
   </div>
 </template>
 
@@ -10,6 +11,6 @@
 
 <style scoped>
 body {
-  background-color: purple; 
+  background-color: purple;
 }
 </style>

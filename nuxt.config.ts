@@ -3,6 +3,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: "2024-11-24",
 
+  runtimeConfig: {
+    public: {
+      pirateApiUrl: process.env.PIRATE_API_URL || 'https://thepirateapi.fly.dev/',
+    },
+  },
+
   app: {
     head: {
       link: [
