@@ -8,7 +8,7 @@
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl || 'https://bigjuicer-torrents.com'
 
-const ogImageUrl = `${siteUrl}/og-image.jpg`
+const ogImageUrl = `${siteUrl}/og-image.png`
 
 useSeoMeta({
   title: 'Big Juicer Torrents - Busca e Download de Torrents',
@@ -24,7 +24,7 @@ useSeoMeta({
   ogImageAlt: 'Big Juicer Torrents - Busca e Download de Torrents',
   ogImageWidth: '1200',
   ogImageHeight: '630',
-  ogImageType: 'image/jpeg',
+  ogImageType: 'image/png',
   ogSiteName: 'Big Juicer Torrents',
   ogLocale: 'pt_BR',
   twitterCard: 'summary_large_image',
