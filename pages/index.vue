@@ -7,22 +7,20 @@
 <script setup>
 const config = useRuntimeConfig()
 
-const getSiteUrl = () => {
+const siteUrl = computed(() => {
   if (process.server) {
-    const envUrl = config.public.siteUrl
-    if (envUrl) return envUrl
-    return 'https://juicer-torrents.vercel.app'
+    return config.public.siteUrl || 'https://juicer-torrents.vercel.app'
   }
-  if (typeof window !== 'undefined') {
-    const envUrl = config.public.siteUrl
-    if (envUrl) return envUrl
-    return window.location.origin
+  if (process.client && typeof window !== 'undefined') {
+    return config.public.siteUrl || window.location.origin
   }
   return 'https://juicer-torrents.vercel.app'
-}
+})
 
-const siteUrl = getSiteUrl()
-const ogImageUrl = `${siteUrl}/og-image.png`
+const ogImageUrl = computed(() => {
+  const baseUrl = siteUrl.value
+  return `${baseUrl}/og-image.png`
+})
 
 useSeoMeta({
   title: 'Big Juicer Torrents - Busca e Download de Torrents',
@@ -33,8 +31,8 @@ useSeoMeta({
   ogType: 'website',
   ogTitle: 'Big Juicer Torrents - Busca e Download de Torrents',
   ogDescription: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
-  ogUrl: siteUrl,
-  ogImage: ogImageUrl,
+  ogUrl: siteUrl.value,
+  ogImage: ogImageUrl.value,
   ogImageAlt: 'Big Juicer Torrents - Busca e Download de Torrents',
   ogImageWidth: '1200',
   ogImageHeight: '630',
@@ -44,7 +42,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
   twitterTitle: 'Big Juicer Torrents - Busca e Download de Torrents',
   twitterDescription: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
-  twitterImage: ogImageUrl,
+  twitterImage: ogImageUrl.value,
   twitterImageAlt: 'Big Juicer Torrents - Busca e Download de Torrents',
 })
 
@@ -52,11 +50,11 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: siteUrl,
+      href: siteUrl.value,
     },
     {
       rel: 'image_src',
-      href: ogImageUrl,
+      href: ogImageUrl.value,
     },
   ],
   script: [
@@ -67,13 +65,13 @@ useHead({
         '@type': 'WebSite',
         name: 'Big Juicer Torrents',
         description: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
-        url: siteUrl,
-        image: ogImageUrl,
+        url: siteUrl.value,
+        image: ogImageUrl.value,
         potentialAction: {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
-            urlTemplate: `${siteUrl}?query={search_term_string}`,
+            urlTemplate: `${siteUrl.value}?query={search_term_string}`,
           },
           'query-input': 'required name=search_term_string',
         },
@@ -85,9 +83,9 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'Big Juicer Torrents',
-        url: siteUrl,
+        url: siteUrl.value,
         description: 'Plataforma de busca de torrents com interface moderna e intuitiva',
-        logo: ogImageUrl,
+        logo: ogImageUrl.value,
       }),
     },
   ],
