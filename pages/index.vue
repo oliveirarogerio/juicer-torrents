@@ -8,18 +8,21 @@
 const config = useRuntimeConfig()
 
 const siteUrl = computed(() => {
+  let url = ''
   if (process.server) {
-    return config.public.siteUrl || 'https://juicer-torrents.vercel.app'
+    url = config.public.siteUrl || 'https://juicer-torrents.vercel.app'
+  } else if (process.client && typeof window !== 'undefined') {
+    url = config.public.siteUrl || window.location.origin
+  } else {
+    url = 'https://juicer-torrents.vercel.app'
   }
-  if (process.client && typeof window !== 'undefined') {
-    return config.public.siteUrl || window.location.origin
-  }
-  return 'https://juicer-torrents.vercel.app'
+  return url.replace(/\/$/, '')
 })
 
 const ogImageUrl = computed(() => {
-  const baseUrl = siteUrl.value
-  return `${baseUrl}/og-image.png`
+  const base = siteUrl.value
+  const imagePath = 'og-image.png'
+  return `${base}/${imagePath}`.replace(/([^:]\/)\/+/g, '$1')
 })
 
 useSeoMeta({
