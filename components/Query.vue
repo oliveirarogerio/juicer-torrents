@@ -212,6 +212,7 @@
 
 <script setup>
 import { ref, watch, onMounted } from "vue";
+import { useDebounce } from "~/composables/useDebounce";
 
 const { searchTorrents, getTop100, formatSize } = useTorrentApi();
 const toast = useToast();

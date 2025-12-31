@@ -1,7 +1,7 @@
-export function useDebounce<T extends (...args: any[]) => any>(
+export const useDebounce = <T extends (...args: any[]) => any>(
   fn: T,
   delay: number = 500
-): T & { cancel: () => void } {
+): T & { cancel: () => void } => {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
   const debouncedFn = ((...args: Parameters<T>) => {
@@ -23,5 +23,5 @@ export function useDebounce<T extends (...args: any[]) => any>(
   };
 
   return Object.assign(debouncedFn, { cancel });
-}
+};
 
