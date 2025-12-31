@@ -241,8 +241,12 @@ const top100Loading = ref(false);
 const copiedIndex = ref(null);
 const copiedTab = ref(null);
 
-const search = async () => {
-  if (!searchQuery.value.trim()) return;
+const performSearch = async () => {
+  if (!searchQuery.value.trim()) {
+    searchResults.value = [];
+    hasSearched.value = false;
+    return;
+  }
 
   searchLoading.value = true;
   searchResults.value = [];
@@ -257,6 +261,22 @@ const search = async () => {
     searchLoading.value = false;
   }
 };
+
+const debouncedSearch = useDebounce(performSearch, 500);
+
+const search = () => {
+  debouncedSearch.cancel();
+  performSearch();
+};
+
+watch(searchQuery, (newValue) => {
+  if (newValue.trim()) {
+    debouncedSearch();
+  } else {
+    searchResults.value = [];
+    hasSearched.value = false;
+  }
+});
 
 const loadTop100 = async () => {
   top100Loading.value = true;
