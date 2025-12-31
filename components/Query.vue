@@ -89,17 +89,25 @@
                         </div>
                       </div>
                     </div>
-                    <UButton
-                      @click="copyToClipboard(result.torrentLink || result.magnetLink, index, 'search')"
-                      :class="[
-                        'p-2 rounded shadow-md font-bold whitespace-nowrap transition-all duration-300',
-                        copiedIndex === index && copiedTab === 'search'
-                          ? 'bg-blue-500 text-white scale-110'
-                          : 'bg-green-500 hover:bg-green-600 text-black'
-                      ]"
-                    >
-                      {{ copiedIndex === index && copiedTab === 'search' ? '✓ Copiado!' : 'Copiar Link' }}
-                    </UButton>
+                    <div class="flex gap-2">
+                      <UButton
+                        @click="copyToClipboard(result.torrentLink || result.magnetLink, index, 'search')"
+                        :class="[
+                          'p-2 rounded shadow-md font-bold whitespace-nowrap transition-all duration-300',
+                          copiedIndex === index && copiedTab === 'search'
+                            ? 'bg-blue-500 text-white scale-110'
+                            : 'bg-green-500 hover:bg-green-600 text-black'
+                        ]"
+                      >
+                        {{ copiedIndex === index && copiedTab === 'search' ? '✓ Copiado!' : 'Copiar Link' }}
+                      </UButton>
+                      <UButton
+                        @click="openInTorrentClient(result.torrentLink || result.magnetLink)"
+                        class="p-2 rounded shadow-md font-bold whitespace-nowrap bg-blue-500 hover:bg-blue-600 text-white transition-all duration-300"
+                      >
+                        🧲
+                      </UButton>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -165,17 +173,25 @@
                         </div>
                       </div>
                     </div>
-                    <UButton
-                      @click="copyToClipboard(result.torrentLink || result.magnetLink, index, 'top100')"
-                      :class="[
-                        'p-2 rounded shadow-md font-bold whitespace-nowrap transition-all duration-300',
-                        copiedIndex === index && copiedTab === 'top100'
-                          ? 'bg-blue-500 text-white scale-110'
-                          : 'bg-green-500 hover:bg-green-600 text-black'
-                      ]"
-                    >
-                      {{ copiedIndex === index && copiedTab === 'top100' ? '✓ Copiado!' : 'Copiar Link' }}
-                    </UButton>
+                    <div class="flex gap-2">
+                      <UButton
+                        @click="copyToClipboard(result.torrentLink || result.magnetLink, index, 'top100')"
+                        :class="[
+                          'p-2 rounded shadow-md font-bold whitespace-nowrap transition-all duration-300',
+                          copiedIndex === index && copiedTab === 'top100'
+                            ? 'bg-blue-500 text-white scale-110'
+                            : 'bg-green-500 hover:bg-green-600 text-black'
+                        ]"
+                      >
+                        {{ copiedIndex === index && copiedTab === 'top100' ? '✓ Copiado!' : 'Copiar Link' }}
+                      </UButton>
+                      <UButton
+                        @click="openInTorrentClient(result.torrentLink || result.magnetLink)"
+                        class="p-2 rounded shadow-md font-bold whitespace-nowrap bg-blue-500 hover:bg-blue-600 text-white transition-all duration-300"
+                      >
+                        🧲
+                      </UButton>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -300,6 +316,34 @@ const copyToClipboard = (text, index, tab) => {
       copiedTab.value = null;
     }
   );
+};
+
+const openInTorrentClient = (link) => {
+  if (!link) {
+    toast.add({
+      title: "Link não disponível!",
+      color: "red",
+      icon: "i-heroicons-exclamation-circle",
+    });
+    return;
+  }
+
+  try {
+    window.open(link, '_blank');
+    toast.add({
+      title: "Abrindo torrent!",
+      description: "Torrent aberto no cliente padrão",
+      color: "green",
+      icon: "i-heroicons-arrow-down-tray",
+    });
+  } catch (err) {
+    toast.add({
+      title: "Erro ao abrir torrent",
+      description: "Verifique se possui um cliente de torrent instalado",
+      color: "red",
+      icon: "i-heroicons-exclamation-circle",
+    });
+  }
 };
 </script>
 
