@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ["@nuxt/ui", "@nuxtjs/tailwindcss"],
+  modules: ["@nuxt/ui", "@nuxtjs/tailwindcss", "@nuxtjs/sitemap"],
   devtools: { enabled: true },
   compatibilityDate: "2024-11-24",
 
@@ -54,6 +54,16 @@ export default defineNuxtConfig({
           content: '7 days',
         },
       ],
+    },
+  },
+
+  sitemap: {
+    hostname: process.env.SITE_URL || 'https://bigjuicer-torrents.com',
+    gzip: true,
+    routes: async () => {
+      return [
+        '/',
+      ];
     },
   },
 });
