@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       pirateApiUrl: process.env.PIRATE_API_URL || 'https://thepirateapi.fly.dev/',
-      siteUrl: process.env.SITE_URL || 'https://bigjuicer-torrents.com',
+      siteUrl: process.env.SITE_URL || 'https://juicer-torrents.vercel.app',
     },
   },
 
@@ -22,7 +22,7 @@ export default defineNuxtConfig({
         },
         {
           rel: "canonical",
-          href: process.env.SITE_URL || 'https://bigjuicer-torrents.com',
+          href: process.env.SITE_URL || 'https://juicer-torrents.vercel.app',
         },
       ],
       meta: [
@@ -58,7 +58,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    hostname: process.env.SITE_URL || 'https://bigjuicer-torrents.com',
+    hostname: process.env.SITE_URL || 'https://juicer-torrents.vercel.app',
     gzip: true,
     routes: async () => {
       return [

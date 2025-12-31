@@ -6,8 +6,22 @@
 
 <script setup>
 const config = useRuntimeConfig()
-const siteUrl = config.public.siteUrl || 'https://bigjuicer-torrents.com'
 
+const getSiteUrl = () => {
+  if (process.server) {
+    const envUrl = config.public.siteUrl
+    if (envUrl) return envUrl
+    return 'https://juicer-torrents.vercel.app'
+  }
+  if (typeof window !== 'undefined') {
+    const envUrl = config.public.siteUrl
+    if (envUrl) return envUrl
+    return window.location.origin
+  }
+  return 'https://juicer-torrents.vercel.app'
+}
+
+const siteUrl = getSiteUrl()
 const ogImageUrl = `${siteUrl}/og-image.png`
 
 useSeoMeta({
