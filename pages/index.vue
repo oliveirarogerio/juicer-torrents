@@ -8,6 +8,8 @@
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl || 'https://bigjuicer-torrents.com'
 
+const ogImageUrl = `${siteUrl}/og-image.jpg`
+
 useSeoMeta({
   title: 'Big Juicer Torrents - Busca e Download de Torrents',
   description: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares. Interface moderna e fácil de usar para encontrar conteúdo rapidamente.',
@@ -18,13 +20,18 @@ useSeoMeta({
   ogTitle: 'Big Juicer Torrents - Busca e Download de Torrents',
   ogDescription: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
   ogUrl: siteUrl,
-  ogImage: `${siteUrl}/og-image.jpg`,
+  ogImage: ogImageUrl,
+  ogImageAlt: 'Big Juicer Torrents - Busca e Download de Torrents',
+  ogImageWidth: '1200',
+  ogImageHeight: '630',
+  ogImageType: 'image/jpeg',
   ogSiteName: 'Big Juicer Torrents',
   ogLocale: 'pt_BR',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Big Juicer Torrents - Busca e Download de Torrents',
   twitterDescription: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
-  twitterImage: `${siteUrl}/og-image.jpg`,
+  twitterImage: ogImageUrl,
+  twitterImageAlt: 'Big Juicer Torrents - Busca e Download de Torrents',
 })
 
 useHead({
@@ -32,6 +39,10 @@ useHead({
     {
       rel: 'canonical',
       href: siteUrl,
+    },
+    {
+      rel: 'image_src',
+      href: ogImageUrl,
     },
   ],
   script: [
@@ -43,6 +54,7 @@ useHead({
         name: 'Big Juicer Torrents',
         description: 'Busque e encontre os melhores torrents. Explore o Top 100 dos torrents mais populares.',
         url: siteUrl,
+        image: ogImageUrl,
         potentialAction: {
           '@type': 'SearchAction',
           target: {
@@ -61,6 +73,7 @@ useHead({
         name: 'Big Juicer Torrents',
         url: siteUrl,
         description: 'Plataforma de busca de torrents com interface moderna e intuitiva',
+        logo: ogImageUrl,
       }),
     },
   ],
